@@ -4,7 +4,7 @@ Personal Claude Code skill collection.
 
 ## Skills
 
-### cr-all
+### cr-all (codereview-all)
 
 Full-chain code review skill. Reconstructs the complete execution path from user action to final outcome, then identifies defects, missing fallbacks, and operational risks with concrete file/line evidence.
 
@@ -13,7 +13,7 @@ Full-chain code review skill. Reconstructs the complete execution path from user
 - **Output**: Severity-ranked findings (P0-P3) with evidence, failure sequence, impact, and fix direction
 - **Reference**: `references/full-chain-review-checklist.md` for comprehensive audits spanning multiple modules
 
-### ro-db
+### ro-db (readonly-database)
 
 Read-only database access through SSH tunnel to remote Docker containers.
 
