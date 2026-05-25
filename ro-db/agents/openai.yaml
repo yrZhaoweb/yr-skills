@@ -1,0 +1,4 @@
+interface:
+  display_name: "RO DB"
+  short_description: "Safely query Docker databases through SSH tunnels"
+  default_prompt: "Use $ro-db to inspect data from a database inside a remote Docker container without making changes."
