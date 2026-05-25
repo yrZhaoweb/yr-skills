@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read Docs"
+  short_description: "Read Feishu, DingTalk, and Tencent docs"
+  default_prompt: "Use $read-docs to read this document link and summarize the contents."
