@@ -4,6 +4,14 @@ Personal Claude Code skill collection.
 
 ## Skills
 
+### all-push
+
+Commit all uncommitted repository changes by functional grouping, then push the current branch.
+
+- **Trigger**: When the user says "对所有未提交代码按照功能创建commit并push", "所有未提交代码创建commit并push", "创建commit并push", "commit并push", or "all-push"
+- **Approach**: Inspects staged, unstaged, and untracked changes; protects primary branches with an explicit confirmation; groups related files into coherent commits; verifies the final state before commit/push when practical
+- **Safety**: Stops before acting on `main`, `master`, `trunk`, `production`, `prod`, or the remote default branch; never force-pushes, rewrites commits, discards changes, or commits suspicious secret files silently
+
 ### cr-all (codereview-all)
 
 Full-chain code review skill. Reconstructs the complete execution path from user action to final outcome, then identifies defects, missing fallbacks, and operational risks with concrete file/line evidence.

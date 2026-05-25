@@ -1,0 +1,4 @@
+interface:
+  display_name: "All Push"
+  short_description: "Group commits and push all pending code"
+  default_prompt: "Use $all-push to create functional commits for all uncommitted code and push them."
