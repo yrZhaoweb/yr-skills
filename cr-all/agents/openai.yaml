@@ -1,4 +1,4 @@
 interface:
   display_name: "CR All"
-  short_description: "Run full-chain expert code reviews for feature workflows."
-  default_prompt: "Use cr-all to perform a full-chain expert review of this feature workflow."
+  short_description: "Run full-chain reviews and optional finding-driven fixes for feature workflows."
+  default_prompt: "Use cr-all to perform a full-chain expert review of this feature workflow, then fix the proven findings if requested."

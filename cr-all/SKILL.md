@@ -1,13 +1,20 @@
 ---
 name: cr-all
-description: "Expert full-chain code review workflow for feature and business-process audits. Use when the user asks for expert mode, end-to-end review, full-link review, full-chain review, audit, or risk triage of a workflow. Always trace the fixed application spine: frontend/user entry, client API call, backend route/action, business logic, data/state persistence, response, and user-visible result. Then add only the optional modules that actually exist in the workflow, such as external providers, async jobs, cron/workers, billing/credits/refunds, storage/OSS, preview/download, permissions, security, idempotency, and observability."
+description: "Use when the user asks for expert mode, end-to-end review, full-link review, full-chain review, audit, risk triage, review-and-fix, or comprehensive repair of a product workflow, especially when the request names a business flow, route, task round, production symptom, billing/credits path, async job, provider integration, storage/export path, permission boundary, or user-visible result."
 ---
 
 # CR All
 
-Use this skill to perform evidence-backed, end-to-end code reviews of a product workflow. Reconstruct the actual execution path from user action to final persisted or user-visible outcome, then identify defects, missing fallbacks, and operational risks with concrete file/line evidence.
+Use this skill to perform evidence-backed, end-to-end code reviews of a product workflow. Reconstruct the actual execution path from user action to final persisted or user-visible outcome, then identify defects, missing fallbacks, and operational risks with concrete file/line evidence. When the user asks to fix after review, continue into implementation, verification, and a combined review/fix result.
 
 Full-chain does not mean every workflow contains payment, refunds, upstream providers, storage transfer, cron, or downloads. Treat the frontend-to-backend path as the fixed spine, then attach optional risk modules only when the code actually uses them.
+
+## Mode Selection
+
+- **Review only**: Use when the user asks only to review, audit, inspect, triage, or explain risks. Do not edit code unless the user explicitly asks for fixes.
+- **Review and fix**: Use when the user says to review and fix, fix after review, continue fixing, fully repair, resolve findings, or uses similar wording such as "全面修复", "你来修", or "审查结束后开始修复".
+- If the wording is ambiguous, state the assumed mode before acting. Prefer review-only for pure audit requests, and review-and-fix for requests that explicitly mention repair.
+- In review-and-fix mode, keep review evidence intact. Do not skip the report just because fixes are applied.
 
 ## Core Rules
 
@@ -20,6 +27,8 @@ Full-chain does not mean every workflow contains payment, refunds, upstream prov
 - Trace success, failure, timeout, retry, refresh, browser-close, process-crash, duplicate-request, and partial-completion paths when those states are meaningful for the workflow.
 - Treat money, credits, refunds, payment, authentication, storage persistence, and external API protocol changes as escalation topics.
 - Do not end reviews with calendar-bucketed plans such as "Immediate / This week / Later" unless the user explicitly asks for scheduling. Provide direct, prioritized solutions instead.
+- In review-and-fix mode, fix proven defects first. Do not implement speculative recommendations unless they are needed for the requested repair or the user approves widening scope.
+- Before editing, check repo status and protect unrelated user changes. Make surgical edits that map directly to review findings.
 
 ## Workflow
 
@@ -80,11 +89,36 @@ Full-chain does not mean every workflow contains payment, refunds, upstream prov
    - optional: partial batch success
    - old data shape or migration leftovers
 
-6. Produce a severity-ranked report:
+6. Produce a severity-ranked review artifact:
    - Findings first, highest severity first.
    - For each finding include: severity, evidence, reproduction/failure sequence, impact, and concrete fix direction.
    - Add an architecture/lifecycle table only when it helps the reader.
-   - End with a prioritized solution list that maps each fix to the relevant finding. Do not use time buckets like "this week" by default.
+   - In review-only mode, this is the final report. End with a prioritized solution list that maps each fix to the relevant finding. Do not use time buckets like "this week" by default.
+   - In review-and-fix mode, keep this as the review record and continue to the handoff and repair steps. Do not stop after the review unless the user asked to pause.
+
+7. If in review-and-fix mode, compress the review into a handoff before implementation:
+   - audited scope and assumptions
+   - route map and lifecycle table summary
+   - finding IDs, severities, evidence files/lines, and fix directions
+   - files likely to change and files that must not be touched
+   - verification commands and any environment prerequisites
+   - residual risks or items intentionally out of scope
+
+   Do not begin repairs until this handoff exists. If the environment supports context compaction or a resume handoff, perform it after writing this handoff. If not, state that compaction is unavailable, keep the handoff in the current context, and continue. The next step after compaction is implementation, not another broad review pass.
+
+8. Fix and verify:
+   - Convert findings into a short fix checklist ordered by severity and dependency.
+   - Re-read each target file before editing, especially if the review was long or context was compacted.
+   - Apply the smallest code changes that close the proven failure sequences.
+   - Add or update focused tests when the codebase has an appropriate test surface.
+   - Run targeted checks first, then broader checks when the blast radius warrants them.
+   - If a finding cannot be fixed safely, leave it unresolved with a concrete blocker and mitigation.
+
+9. Produce a combined final result:
+   - Review results: findings, evidence, impact, and original fix direction.
+   - Fix results: changed files, finding-to-fix mapping, verification commands/results, unresolved findings, and residual risk.
+   - Context handling: whether compaction/resume handoff was performed or unavailable.
+   - If commits or pushes were requested, report commit hashes and remote status after verification.
 
 ## High-Value Review Lenses
 
@@ -135,6 +169,59 @@ Apply these lenses when the relevant pattern exists in the code:
 1. Fix `<finding title>` by ...
 2. Fix `<finding title>` by ...
 3. Optional hardening: ...
+```
+
+## Review-And-Fix Handoff Template
+
+```markdown
+# CR-All Handoff: <workflow>
+
+## Mode
+Review and fix.
+
+## Scope
+<Audited lifecycle and assumptions.>
+
+## Route Map
+| Stage | Files/routes | State or side effect | Notes |
+|---|---|---|---|
+
+## Findings To Fix
+| ID | Severity | Title | Evidence | Fix direction |
+|---|---|---|---|---|
+
+## Edit Boundaries
+- Likely files:
+- Do not touch:
+- User/unrelated changes to preserve:
+
+## Verification
+- Targeted:
+- Broader:
+- Environment prerequisites:
+
+## Residual Risks
+- <Known risk, blocker, or out-of-scope item.>
+```
+
+## Combined Result Template
+
+```markdown
+# Full-Chain Review And Fix: <workflow>
+
+## 1. Review Results
+| ID | Severity | Finding | Evidence | Impact |
+|---|---|---|---|---|
+
+## 2. Fix Results
+| Finding ID | Status | Changed files | Verification |
+|---|---|---|---|
+
+## 3. Verification
+- `<command>`: <result>
+
+## 4. Unresolved / Residual Risk
+- <Only include remaining issues, blockers, or follow-up work.>
 ```
 
 ## Deep Checklist
