@@ -1,6 +1,6 @@
 ---
 name: work-skill
-description: Use when a user wants one manager session to coordinate a clear goal across multiple agents, modules, workstreams, or task packs, especially when all implementation, testing, review, and acceptance work must be delegated.
+description: Use when a user wants one manager session to coordinate a clear goal across multiple agents, modules, workstreams, task packs, or a very large single objective, especially when all implementation, testing, review, and acceptance work must be delegated.
 ---
 
 # Work Skill
@@ -19,7 +19,9 @@ Use when the user asks for or implies:
 - "当前会话作为管理者会话"
 - "按照功能模块，每个模块启用一个子 agent"
 - "管理者不参与开发/测试/review/验收"
+- "用这个 skill 承载一个巨大目标"
 - A broad task with separable modules, routes, files, owners, rounds, or task packs
+- A large program or long-running build that must be decomposed into phases and child-agent tasks
 - Parallel investigation where independent findings must be coordinated into one answer
 - A delivery goal where execution, verification, review, and acceptance should be handled by separate agents
 
@@ -58,6 +60,30 @@ Bad worker tasks are vague or overlapping:
 - "One agent edits frontend while another edits the same component."
 
 Prefer 2-5 workers for execution plus separate agents for testing/review/acceptance when needed. More workers only help when boundaries are clean and the manager can still coordinate dependencies.
+
+## Large Goal Mode
+
+A single goal may be huge, but no child-agent task may be huge. Treat the goal as a program of work:
+
+```text
+One huge goal
+-> phases
+-> task graph
+-> small child-agent tasks
+-> testing/review/integration/acceptance agents
+-> manager summary
+```
+
+Before dispatching implementation for a huge goal, assign child agents to produce the durable planning artifacts:
+
+- **Goal brief**: user outcome, constraints, non-goals, and acceptance criteria.
+- **Architecture/design**: module boundaries, data contracts, routes, permissions, external dependencies, and integration points.
+- **Execution plan**: phases, task IDs, dependencies, owners, expected artifacts, and stop/go gates.
+- **Acceptance checklist**: scenario-level checks that an acceptance agent can run without relying on manager judgment.
+
+Use phases when the task graph is too large to fit in one reliable dispatch. A phase should have a visible deliverable and an acceptance task. The manager may start the next phase only after the assigned acceptance agent reports the current phase result.
+
+Do not dispatch a child agent with "build the whole app" or "finish the entire system." Split until each task has a bounded file/module area, expected output, and evidence requirement.
 
 ## Required Agent Roles
 
