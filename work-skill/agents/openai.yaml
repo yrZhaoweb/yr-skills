@@ -1,0 +1,4 @@
+interface:
+  display_name: "Work Skill"
+  short_description: "Coordinate delegated multi-agent work"
+  default_prompt: "Use $work-skill to coordinate this goal as the manager session across independent agents."
