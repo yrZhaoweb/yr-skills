@@ -41,9 +41,9 @@ Read and inspect online documents from Feishu/Lark, DingTalk/AliDocs, and Tencen
 
 ### conductor
 
-Coordinate a clear goal across multiple child agents while the manager session only handles planning, dispatch, tracking, and summary.
+Coordinate a clear goal across multiple child agents while the manager session handles planning, dispatch, persistent state, tracking, and summary.
 
 - **Trigger**: When the user wants "目标 + 管理者 + 多 agent", says "当前会话作为管理者会话", or wants to use one goal to carry a very large program of work
-- **Approach**: Splits the goal into phases, task graph, bounded child-agent tasks, and delegated implementation/testing/review/integration/acceptance roles
+- **Approach**: Splits the goal into workload level, phases, task graph, bounded child-agent tasks, persistent `.conductor/` state, and delegated implementation/testing/review/integration/acceptance roles
 - **Large goals**: Requires durable planning artifacts such as goal brief, architecture/design, execution plan, and acceptance checklist before implementation dispatch
-- **Boundary**: The manager does not develop, test, review, integrate, or accept; missing work is delegated to the appropriate child agent
+- **Boundary**: The manager does not develop, test, review, integrate, or accept except for documented trivial/fallback paths; acceptance must include an independent rerun check
