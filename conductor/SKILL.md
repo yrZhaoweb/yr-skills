@@ -1,9 +1,9 @@
 ---
-name: work-skill
+name: conductor
 description: Use when a user asks for a manager/管理者会话 to coordinate 子agent or multi-agent work for a large goal, task pack, parallel modules, phases, or phrases like 多 agent, 每个模块启用一个子 agent, 管理者不参与开发/测试/review/验收, 巨大目标, or delegated acceptance.
 ---
 
-# Work Skill
+# Conductor
 
 ## Overview
 
@@ -72,9 +72,9 @@ The Task Card and Worker Report formats below are the adapter boundary. Runtime-
 
 Good worker tasks are independent and have a clear output:
 
-- "Fix CRM analytics filter counts; report changed files, tests, and remaining risk."
-- "Inspect imageWash task creation flow; do not edit TikTok code; return root cause and patch."
-- "Review R3 docs for missing gates; provide file:line evidence and proposed text."
+- "Fix sales dashboard filter counts; report changed files, tests, and remaining risk."
+- "Inspect media import task creation flow; do not edit ads integration code; return root cause and patch."
+- "Review release docs for missing gates; provide file:line evidence and proposed text."
 - "Run acceptance for the completed slices; report pass/fail, evidence, and unresolved risk."
 
 Bad worker tasks are vague or overlapping:
@@ -283,13 +283,13 @@ Delegation note: <delegated / trivial manager edit / fallback not delegated>
 
 ### Small Bug
 
-Goal: fix one analytics count bug without touching unrelated screens.
+Goal: fix one dashboard count bug without touching unrelated screens.
 
 ```text
 Task P1-IMPL-01
 Role: implementation
-Objective: Fix CRM analytics filter counts.
-Allowed paths: src/features/crm/analytics/**, tests/crm/analytics/**
+Objective: Fix sales dashboard filter counts.
+Allowed paths: src/features/sales/dashboard/**, tests/sales/dashboard/**
 Inputs: cold-start repo path, failing scenario, expected count rule, test command.
 Expected evidence: changed files, focused test result, risk.
 

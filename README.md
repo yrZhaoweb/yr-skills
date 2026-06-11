@@ -39,7 +39,7 @@ Read and inspect online documents from Feishu/Lark, DingTalk/AliDocs, and Tencen
 - **Supported sources**: Feishu (domestic & international), DingTalk (cross-org via Chrome), Tencent Docs (documents, sheets, smart sheets)
 - **Verification**: Always reports the source method, document title, object type, and coverage completeness
 
-### work-skill
+### conductor
 
 Coordinate a clear goal across multiple child agents while the manager session only handles planning, dispatch, tracking, and summary.
 
